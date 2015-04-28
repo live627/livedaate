@@ -331,10 +331,12 @@
 			yearSelector = $('<select/>').change(function() {
 				setValue($(this).val(), monthSelector.val());
 			});
-		title.append(monthSelector.add(yearSelector));
 
 		for (var d = 0; d < 7; d++)
 			days.add($('<th/>').addClass('right').text(daysShort[(d + (conf.firstDay || 0)) % 7]));
+
+		root.append(monthSelector.add(yearSelector));
+		root.append($table);
 
 		if (value)
 			select(value);
