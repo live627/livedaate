@@ -30,7 +30,7 @@
 {
 	color: #aaa;
 }
-.cal table td: not(.disabled)
+.cal table td:not(.disabled)
 {
 	border-radius: 3px;
 	cursor: pointer;
