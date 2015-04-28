@@ -311,16 +311,15 @@
 		max = parseDate(max || new Date(yearNow + conf.yearRange[1] + 1, 1, -1));
 
 		// root
-		root = $('<div><div><div/></div><table><tbody/><tr/></table></div>')
+		root = $('<div>')
 			.addClass('cal');
 
 		input.after(root).addClass('dateinput');
 
 		// elements
 		var
-			$children = root.children(),
-			title = $children.first(),
-			$tableChildren = $children.eq(1).children(),
+			$table = $('<table><tbody/><tr/></table/>'),
+			$tableChildren = $table.eq(0).children(),
 			days = $tableChildren.eq(0).append($('<tr/>')),
 			weeks = $tableChildren.eq(1);
 
