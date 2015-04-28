@@ -324,8 +324,9 @@
 			weeks = $tableChildren.eq(1);
 
 		// year & month selectors
-		var monthSelector = $('<select/>').change(function() {
-			setValue(yearSelector.val(), $(this).val());
+		var
+			monthSelector = $('<select/>').change(function() {
+				setValue(yearSelector.val(), $(this).val());
 			}),
 			yearSelector = $('<select/>').change(function() {
 				setValue($(this).val(), monthSelector.val());
