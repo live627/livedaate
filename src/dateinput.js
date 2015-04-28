@@ -7,7 +7,7 @@
  * Developed and customized/optimized for inclusion with Wedge plugins
  * by John "live627" Rayes.
  *
- * @version 0.2
+ * @version 0.3
  */
 
 
