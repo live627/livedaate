@@ -19,7 +19,7 @@
 			conf = $.extend({
 				yearRange: [-5, 10],
 			}, uconf),
-			now = $.now(),
+			now = new Date,
 			yearNow = now.getFullYear(),
 			root,
 			currYear, currMonth, currDay,
