@@ -17,10 +17,12 @@
 		var
 			conf = $.extend({
 				yearRange: [-5, 10],
+				ranges: [],
+				values: []
 			}, uconf),
 			now = new Date(),
 			yearNow = now.getFullYear(),
-			root,
+			root, currRange = '',
 			currYear, currMonth, currDay,
 			value = input.attr('data-value') || conf.value || input.val() || now,
 			min = input.attr('min') || conf.min,
@@ -170,6 +172,10 @@
 						// current
 						if (isSameDay(date, thisDate))
 							td.addClass('hove');
+
+						// current
+						if (!(thisDate < conf.values[0] || thisDate > conf.values[1]))
+							td.addClass('hove2');
 					}
 
 					// disabled

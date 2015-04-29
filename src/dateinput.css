@@ -9,6 +9,10 @@
 	position: absolute;
 	z-index: 999;
 }
+.cal > * {
+	display: inline-block;
+	vertical-align: top;
+}
 .cal .center
 {
 	margin-bottom: 0.5em;
@@ -19,6 +23,7 @@
 }
 .cal table
 {
+	padding-left: 0.5em;
 	cell-padding: 0;
 	cell-spacing: 0;
 }
@@ -29,17 +34,22 @@
 .cal table td.disabled
 {
 	color: #aaa;
+	cursor: default;
 }
 .cal table td:not(.disabled)
 {
-	border-radius: 3px;
 	cursor: pointer;
 	color: #300;
+}
+.cal table td.hove2
+{
+	color: #000;
+	background-color: rgba(0,0,0,.085);
 }
 .cal table td.hove
 {
 	color: #000;
-	background-color: rgba(0,0,0,.075);
+	background-color: rgba(0,0,0,.15);
 }
 .cal table td:hover
 {
