@@ -72,6 +72,28 @@
 				currYear = year;
 				currDay = day;
 
+				// elements
+				var
+					$table = $('<table><tbody/><tr/></table/>'),
+					$tableChildren = $table.eq(0).children(),
+					days = $tableChildren.eq(0).append($('<tr/>')),
+					weeks = $tableChildren.eq(1);
+
+				// year & month selectors
+				var
+					monthSelector = $('<select/>').change(function() {
+						setValue(yearSelector.val(), $(this).val());
+					}),
+					yearSelector = $('<select/>').change(function() {
+						setValue($(this).val(), monthSelector.val());
+					});
+
+				for (var d = 0; d < 7; d++)
+					days.add($('<th/>').addClass('right').text(daysShort[(d + (conf.firstDay || 0)) % 7]));
+
+				root.append(monthSelector.add(yearSelector));
+				root.append($table);
+
 				// variables
 				var tmp = new Date(year, month, 1 - (conf.firstDay || 0)), begin = tmp.getDay(),
 					days = dayAm(year, month),
@@ -313,28 +335,6 @@
 			.addClass('cal');
 
 		input.after(root).addClass('dateinput');
-
-		// elements
-		var
-			$table = $('<table><tbody/><tr/></table/>'),
-			$tableChildren = $table.eq(0).children(),
-			days = $tableChildren.eq(0).append($('<tr/>')),
-			weeks = $tableChildren.eq(1);
-
-		// year & month selectors
-		var
-			monthSelector = $('<select/>').change(function() {
-				setValue(yearSelector.val(), $(this).val());
-			}),
-			yearSelector = $('<select/>').change(function() {
-				setValue($(this).val(), monthSelector.val());
-			});
-
-		for (var d = 0; d < 7; d++)
-			days.add($('<th/>').addClass('right').text(daysShort[(d + (conf.firstDay || 0)) % 7]));
-
-		root.append(monthSelector.add(yearSelector));
-		root.append($table);
 
 		if (value)
 			select(value);
