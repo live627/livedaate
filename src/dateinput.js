@@ -272,44 +272,6 @@
 
 			onShow = function (ev)
 			{
-				$(document).on('keydown.d', function(event)
-				{
-					if (opened)
-						switch (event.keyCode)
-						{
-							case 9: case 27:
-								hide();
-								break; // hide on tab out // hide on escape
-							case 13:
-								var sel = $('td.hove:not(chosen)', root);
-								if (sel[0])
-									select(sel.data('date'));
-								return false; // don't submit the form
-								break; // select the value on enter
-							case 33:
-								addMonth(-1);
-								break; // previous month/year on page up/+ ctrl
-							case 34:
-								addMonth(+1);
-								break; // next month/year on page down/+ ctrl
-							case 82: // r
-								select(now);
-								break; // current
-							case 37: // left arrow
-								addDay(-1);
-								break;
-							case 38: // up arrow
-								addDay(-7);
-								break; // -1 week
-							case 39: // right arrow
-								addDay(+1);
-								break;
-							case 40: // down arrow
-								addDay(+7);
-								break; // +1 week
-						}
-				});
-
 				// click outside dateinput
 				$(document).on('click.d', function(e)
 				{
@@ -349,21 +311,8 @@
 		{
 			input.on('focus.d click.d', show).keydown(function(e)
 			{
-				var key = e.keyCode;
-
-				// open dateinput with navigation keys
-				// h=72, j=74, k=75, l=76, down=40, left=37, up=38, right=39
-				if (!opened && $([75, 76, 38, 39, 74, 72, 40, 37]).index(key) >= 0)
-				{
-					show();
-					return e.preventDefault();
-				}
-				// clear value on backspace or delete
-				else if (key == 8 || key == 46)
-					input.val('');
-
 				// allow tab
-				return e.shiftKey || e.ctrlKey || e.altKey || key == 9 ? true : e.preventDefault();
+				return e.shiftKey || e.ctrlKey || e.altKey || e.keyCode == 9 ? true : e.preventDefault();
 			});
 		}
 	}
