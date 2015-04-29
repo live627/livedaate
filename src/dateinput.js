@@ -93,8 +93,8 @@
 				s.append($('<td/>').attr('colspan', 7).append(monthSelector.add(yearSelector)));
 				root.html($table);
 
-				for (var d = 0; d < 7; d++)
-					d.append($('<th/>').addClass('right').text(daysShort[(d + (conf.firstDay || 0)) % 7]));
+				for (var d1 = 0; d1 < 7; d1++)
+					d.append($('<th/>').addClass('right').text(daysShort[(d1 + (conf.firstDay || 0)) % 7]));
 
 				if (!fromKey)
 				{
