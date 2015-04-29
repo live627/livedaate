@@ -74,31 +74,27 @@
 
 				// elements
 				var
-					$table = $('<table><tbody/><tr/></table/>'),
-					$tableChildren = $table.eq(0).children(),
-					days = $tableChildren.eq(0).append($('<tr/>')),
-					weeks = $tableChildren.eq(1);
-
-				// year & month selectors
-				var
+					$table = $('<table><tbody><tr/><tr/><tr/></tbody></table>'),
+					$tableChildren = $table.eq(0).children().eq(0).children(),
+					s = $tableChildren.eq(0),
+					d = s.next(),
+					weeks = $tableChildren.eq(2),
 					monthSelector = $('<select/>').change(function() {
 						setValue(yearSelector.val(), $(this).val());
 					}),
 					yearSelector = $('<select/>').change(function() {
 						setValue($(this).val(), monthSelector.val());
-					});
-
-				for (var d = 0; d < 7; d++)
-					days.add($('<th/>').addClass('right').text(daysShort[(d + (conf.firstDay || 0)) % 7]));
-
-				root.append(monthSelector.add(yearSelector));
-				root.append($table);
-
-				// variables
-				var tmp = new Date(year, month, 1 - (conf.firstDay || 0)), begin = tmp.getDay(),
+					}),
+					tmp = new Date(year, month, 1 - (conf.firstDay || 0)), begin = tmp.getDay(),
 					days = dayAm(year, month),
 					prevDays = dayAm(year, month - 1),
 					week;
+
+				s.append($('<td/>').attr('colspan', 7).append(monthSelector.add(yearSelector)));
+				root.html($table);
+
+				for (var d = 0; d < 7; d++)
+					d.append($('<th/>').addClass('right').text(daysShort[(d + (conf.firstDay || 0)) % 7]));
 
 				if (!fromKey)
 				{
@@ -117,9 +113,6 @@
 					monthSelector.val(month);
 					yearSelector.val(year);
 				}
-
-				// populate weeks
-				weeks.empty();
 
 				// !begin === 'sunday'
 				for (var j = !begin ? -7 : 0, td, num; j < (!begin ? 35 : 42); j++) {
