@@ -74,11 +74,10 @@
 
 				// elements
 				var
-					$table = $('<table><tbody><tr/><tr/><tr/></tbody></table>'),
-					$tableChildren = $table.eq(0).children().eq(0).children(),
-					s = $tableChildren.eq(0),
+					$table = $('<table><tbody><tr/><tr/></tbody></table>'),
+					$c = $table.eq(0).children(),
+					s = $c.eq(0).children().eq(0),
 					d = s.next(),
-					weeks = $tableChildren.eq(2),
 					monthSelector = $('<select/>').change(function() {
 						setValue(yearSelector.val(), $(this).val());
 					}),
@@ -120,7 +119,7 @@
 					td = $('<td/>').addClass('right');
 
 					if (j % 7 === 0)
-						week = $('<tr/>').appendTo(weeks);
+						week = $('<tr/>').appendTo($c);
 
 					if (j < begin)
 					{
