@@ -10,7 +10,6 @@
  * @version 0.3
  */
 
-
 (function($)
 {
 	function Dateinput(input, uconf)
@@ -29,18 +28,40 @@
 			opened,
 
 			show = function(e) {
-
 				if (input.attr('readonly') || input.attr('disabled') || opened)
 					return;
 
 				$('.cal').hide();
 				opened = true;
-
-				// set date
-				setValue(value);
-
-				root.animate(is_opera ? { opacity: 'show' } : { opacity: 'show', height: 'show' }, 150);
+				root.animate({opacity: 'show', height: 'show'}, 150);
 				onShow();
+				r();
+			},
+
+			r = function(e) {
+				root.empty();
+				setValue(conf.values[0]);
+				setValue(conf.values[1]);
+				ranges();
+			},
+
+			ranges = function(e) {
+				var div = $('<div>').addClass('btn-group-vertical');
+				for (range in conf.ranges) {
+					div.append($('<a>').addClass('btn btn-primary').text(range).addClass(function( index ) {
+						return currRange == range ? 'active' : '';
+					}).click(function (e) {
+						var $this = $(this);
+						$this.parent().find('a').removeClass('active');
+						$this.addClass('active');
+						currRange = $this.text();
+						conf.values = conf.ranges[currRange];
+						setTimeout(function () {
+							r();
+						}, 50);
+					}));
+				}
+				div.appendTo(root);
 			},
 
 			setValue = function(year, month, day, fromKey)
