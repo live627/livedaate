@@ -193,129 +193,129 @@
 				}
 			},
 
-		// @return amount of days in certain month
-		dayAm = function (year, month)
-		{
-			return new Date(year, month + 1, 0).getDate();
-		},
-
-		integer = function (val)
-		{
-			return parseInt(val, 10);
-		},
-
-		isSameDay = function (d1, d2)
-		{
-			return d1.toDateString() == d2.toDateString();
-		},
-
-		parseDate = function (val)
-		{
-			if (val === undefined)
-				return;
-
-			if (val.constructor == Date)
-				return val;
-
-			if (typeof val == 'string')
+			// @return amount of days in certain month
+			dayAm = function (year, month)
 			{
+				return new Date(year, month + 1, 0).getDate();
+			},
 
-				// rfc3339?
-				var els = val.split('-');
-				if (els.length == 3)
-					return new Date(integer(els[0]), integer(els[1]) - 1, integer(els[2]));
+			integer = function (val)
+			{
+				return parseInt(val, 10);
+			},
 
-				// invalid offset
-				if ( !(/^-?\d+$/).test(val) )
+			isSameDay = function (d1, d2)
+			{
+				return d1.toDateString() == d2.toDateString();
+			},
+
+			parseDate = function (val)
+			{
+				if (val === undefined)
 					return;
 
-				// convert to integer
-				val = integer(val);
-			}
+				if (val.constructor == Date)
+					return val;
 
-			var date = new Date;
-			date.setDate(date.getDate() + val);
-			return date;
-		},
+				if (typeof val == 'string')
+				{
 
-		select = function (date)
-		{
-			// current value
-			value		= date;
-			currYear	= date.getFullYear();
-			currMonth	= date.getMonth();
-			currDay		= date.getDate();
+					// rfc3339?
+					var els = val.split('-');
+					if (els.length == 3)
+						return new Date(integer(els[0]), integer(els[1]) - 1, integer(els[2]));
 
-			// formatting
-			input.val(date.getFullYear()
-				+ '-' + pad(date.getMonth() + 1)
-				+ '-' + pad(date.getDate()));
+					// invalid offset
+					if ( !(/^-?\d+$/).test(val) )
+						return;
 
-			// store value into input
-			input.data('date', date);
-			hide();
-		},
+					// convert to integer
+					val = integer(val);
+				}
 
-		onShow = function (ev)
-		{
-			$(document).on('keydown.d', function(event)
+				var date = new Date;
+				date.setDate(date.getDate() + val);
+				return date;
+			},
+
+			select = function (date)
 			{
-				if (opened)
-					switch (event.keyCode)
-					{
-						case 9: case 27:
-							hide();
-							break; // hide on tab out // hide on escape
-						case 13:
-							var sel = $('td.hove:not(chosen)', root);
-							if (sel[0])
-								select(sel.data('date'));
-							return false; // don't submit the form
-							break; // select the value on enter
-						case 33:
-							addMonth(-1);
-							break; // previous month/year on page up/+ ctrl
-						case 34:
-							addMonth(+1);
-							break; // next month/year on page down/+ ctrl
-						case 82: // r
-							select(now);
-							break; // current
-						case 37: // left arrow
-							addDay(-1);
-							break;
-						case 38: // up arrow
-							addDay(-7);
-							break; // -1 week
-						case 39: // right arrow
-							addDay(+1);
-							break;
-						case 40: // down arrow
-							addDay(+7);
-							break; // +1 week
-					}
-			});
+				// current value
+				value		= date;
+				currYear	= date.getFullYear();
+				currMonth	= date.getMonth();
+				currDay		= date.getDate();
 
-			// click outside dateinput
-			$(document).on('click.d', function(e)
+				// formatting
+				input.val(date.getFullYear()
+					+ '-' + pad(date.getMonth() + 1)
+					+ '-' + pad(date.getDate()));
+
+				// store value into input
+				input.data('date', date);
+				hide();
+			},
+
+			onShow = function (ev)
 			{
-				var el = e.target;
+				$(document).on('keydown.d', function(event)
+				{
+					if (opened)
+						switch (event.keyCode)
+						{
+							case 9: case 27:
+								hide();
+								break; // hide on tab out // hide on escape
+							case 13:
+								var sel = $('td.hove:not(chosen)', root);
+								if (sel[0])
+									select(sel.data('date'));
+								return false; // don't submit the form
+								break; // select the value on enter
+							case 33:
+								addMonth(-1);
+								break; // previous month/year on page up/+ ctrl
+							case 34:
+								addMonth(+1);
+								break; // next month/year on page down/+ ctrl
+							case 82: // r
+								select(now);
+								break; // current
+							case 37: // left arrow
+								addDay(-1);
+								break;
+							case 38: // up arrow
+								addDay(-7);
+								break; // -1 week
+							case 39: // right arrow
+								addDay(+1);
+								break;
+							case 40: // down arrow
+								addDay(+7);
+								break; // +1 week
+						}
+				});
 
-				if ($(el).parents('.cal').length || el == input[0])
-					return;
+				// click outside dateinput
+				$(document).on('click.d', function(e)
+				{
+					var el = e.target;
 
-				hide(e);
-			});
-		},
+					if ($(el).parents('.cal').length || el == input[0])
+						return;
 
-		pad = function (number)
-		{
-			var r = String(number);
-			if (r.length === 1)
-				r = '0' + r;
+					hide(e);
+				});
+			},
 
-			return r;
-		};
+			pad = function (number)
+			{
+				var r = String(number);
+				if (r.length === 1)
+					r = '0' + r;
+
+				return r;
+			};
 
 		// use sane values for value, min & max
 		value = parseDate(value);
