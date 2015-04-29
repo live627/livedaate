@@ -111,7 +111,7 @@
 					week;
 
 				s.append($('<td/>').attr('colspan', 7).append(monthSelector.add(yearSelector)));
-				root.html($table);
+				root.append($table);
 
 				for (var d1 = 0; d1 < 7; d1++)
 					d.append($('<th/>').addClass('right').text(daysShort[(d1 + (conf.firstDay || 0)) % 7]));
