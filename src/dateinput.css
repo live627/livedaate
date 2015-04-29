@@ -41,6 +41,11 @@
 	color: #000;
 	background-color: rgba(0,0,0,.075);
 }
+.cal table td:hover
+{
+	color: #000;
+	background-color: rgba(0,0,0,.045);
+}
 .cal table td.today
 {
 	color: #900;

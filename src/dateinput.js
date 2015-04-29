@@ -179,13 +179,6 @@
 					td.appendTo(week).text(num).filter(':not(.disabled)').data('date', thisDate).click(function (e)
 					{
 						select($(this).data('date'), e);
-					}).mouseover(function()
-					{
-						$(this).parent().parent().find('td').removeClass('hove');
-						$(this).addClass('hove');
-					}).mouseout(function (e)
-					{
-						$(this).removeClass('hove');
 					});
 				}
 			},
