@@ -1,0 +1,22 @@
+{
+  "name": "livedate",
+  "version": "0.1.0",
+  "description": "Visual date picker jQuery plugin",
+  "main": "src/dateinput.js",
+  "repository": {
+    "type": "git",
+    "url": "https://live627@github.com/live627/livedate.git"
+  },
+  "keywords": [
+    "date",
+    "picker",
+    "jquery",
+    "jquery-plugin"
+  ],
+  "author": "live627 <live627@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/live627/livedate/issues"
+  },
+  "homepage": "https://github.com/live627/livedate",
+}
