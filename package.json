@@ -5,6 +5,7 @@
   "main": "src/dateinput.js",
   "scripts": {
     "build": "mkdirp build && (uglifyjs src/dateinput.js > build/dateinput.min.js & lessc src/dateinput.less > build/dateinput.css)",
+    "watch": "watch \"npm run build\" src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
