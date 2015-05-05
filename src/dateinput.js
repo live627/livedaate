@@ -306,7 +306,7 @@
 
 		// root
 		root = $('<div>')
-			.addClass('cal');
+			.addClass('cal ');
 
 		input.after(root).addClass('dateinput');
 
