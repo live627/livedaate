@@ -189,18 +189,6 @@
 				}
 			},
 
-			addDay = function(amount) {
-				return setValue(currYear, currMonth, currDay + (amount || 1), true);
-			},
-
-			addMonth = function(amount) {
-				var targetMonth		= currMonth + (amount || 1),
-				daysInTargetMonth	= dayAm(currYear, targetMonth),
-				targetDay			= currDay <= daysInTargetMonth ? currDay : daysInTargetMonth;
-
-				return setValue(currYear, targetMonth, targetDay);
-			},
-
 			hide = function()
 			{
 				if (opened)
