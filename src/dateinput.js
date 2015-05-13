@@ -15,10 +15,13 @@
 	function Dateinput(input, uconf)
 	{
 		var
-			conf = $.extend({
+			conf = extend({
 				yearRange: [-5, 10],
 				ranges: [],
-				values: []
+				values: [],
+				value: undefined,
+				min: undefined,
+				max: undefined,
 			}, uconf),
 			now = new Date(),
 			yearNow = now.getFullYear(),
