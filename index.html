@@ -5,99 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Livedate by live627</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="dateinput.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Livedate</h1>
-        <p>Visual date picker script. </p>
+    <input type="text" id="date">
 
-        <p class="view"><a href="https://github.com/live627/livedate">View the Project on GitHub <small>live627/livedate</small></a></p>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="dateinput.min.js"></script>
+    <script>
+      var
+        is_opera = false,
+        days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+        daysShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+        months = ['January','February','March','April','May','June','July','August','September','October','November','December'],
+        monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      $('#date').dateinput();
+    </script>
 
-
-        <ul>
-          <li><a href="https://github.com/live627/livedate/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/live627/livedate/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/live627/livedate">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
-<a id="dateinput" class="anchor" href="#dateinput" aria-hidden="true"><span class="octicon octicon-link"></span></a>DateInput</h1>
-
-<p>Visual date picker script. Very compact at under 2KB minified and gzipped.</p>
-
-<p>Developed and customized/optimized for inclusion with Wedge plugins by John "live627" Rayes.</p>
-
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
-
-<p>In your Wedge plugin, add the script file (obviously) and add some seperate JS like so:</p>
-
-<div class="highlight highlight-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
-<span class="pl-s1"></span>
-<span class="pl-s1">add_js(<span class="pl-s"><span class="pl-pds">'</span></span></span>
-<span class="pl-s1"><span class="pl-s">    var</span></span>
-<span class="pl-s1"><span class="pl-s">        days = <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-c1">json_encode</span>(<span class="pl-c1">array_values</span>(<span class="pl-smi">$txt</span>[<span class="pl-s"><span class="pl-pds">'</span>days<span class="pl-pds">'</span></span>])) <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>,</span></span>
-<span class="pl-s1"><span class="pl-s">        daysShort = <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-c1">json_encode</span>(<span class="pl-c1">array_values</span>(<span class="pl-smi">$txt</span>[<span class="pl-s"><span class="pl-pds">'</span>days_short<span class="pl-pds">'</span></span>])) <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>,</span></span>
-<span class="pl-s1"><span class="pl-s">        months = <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-c1">json_encode</span>(<span class="pl-c1">array_values</span>(<span class="pl-smi">$txt</span>[<span class="pl-s"><span class="pl-pds">'</span>months<span class="pl-pds">'</span></span>])) <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>,</span></span>
-<span class="pl-s1"><span class="pl-s">        monthsShort = <span class="pl-pds">'</span></span> <span class="pl-k">.</span> <span class="pl-c1">json_encode</span>(<span class="pl-c1">array_values</span>(<span class="pl-smi">$txt</span>[<span class="pl-s"><span class="pl-pds">'</span>months_short<span class="pl-pds">'</span></span>])) <span class="pl-k">.</span> <span class="pl-s"><span class="pl-pds">'</span>;<span class="pl-pds">'</span></span>);</span>
-<span class="pl-s1"></span>
-<span class="pl-s1">    </span><span class="pl-pse"><span class="pl-s1">?</span>&gt;</span></pre></div>
-
-<h2>
-<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h2>
-
-<p>Filesizes were computed using Packer (in Wedge) and gzipping the file.</p>
-
-<pre><code>0.2 (30 April 2012)
----
-* Optimise the code for an even smaller bytesize
-! Combine two `unbind` statements into one
-- Remove references to `self`, as they were unnecessary
-
-0.1 (01 April 2012)
----
-* Down to 1.82 KB from the original ~3.5 KB.
-- Remove almost all public methods, and made the rest private (maybe three
-  or four were necessary for successful operation).
-+ Add some keyboard shortcuts, to resemble the UI widget somewhat.
-- Remove all callbacks.
-* Reformat functions to be variable declarations.
-! Max and min did not limit the date selectors properly.
-* Use as few queries as possible, since querying the document all the time
-  isn't the cheapest way to do things. We're all for speed here, right?
-</code></pre>
-
-<h2>
-<a id="sources" class="anchor" href="#sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sources</h2>
-
-<p>This work is based on <a href="http://flowplayer.org/tools/form/dateinput/">jQuery Tools Dateinput</a>.</p>
-
-<h2>
-<a id="legal" class="anchor" href="#legal" aria-hidden="true"><span class="octicon octicon-link"></span></a>Legal</h2>
-
-<p>This work is released under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.</p>
-
-<h2>
-<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h2>
-
-<ul>
-<li>Use the scroll wheel to change months.</li>
-</ul>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/live627">live627</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
   </body>
 </html>

@@ -1,0 +1,51 @@
+.cal {
+  border: 1px solid #bbb;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background: #f7fcf7;
+  display: none;
+  padding: 0.5em;
+  position: absolute;
+  z-index: 999;
+}
+
+.cal .center {
+  margin-bottom: 0.5em;
+}
+
+.cal .ui-datepicker-header a {
+  margin-top: 5px;
+}
+
+.cal table {
+  cell-padding: 0;
+  cell-spacing: 0;
+}
+
+.cal table td {
+  padding: 6px 8px;
+}
+
+.cal table td.disabled {
+  color: #aaa;
+}
+
+.cal table td:not(.disabled) {
+  border-radius: 3px;
+  cursor: pointer;
+  color: #300;
+}
+
+.cal table td.hove {
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.cal table td.today {
+  color: #900;
+}
+
+.cal table td.chosen {
+  font-weight: bold;
+}
+
