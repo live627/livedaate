@@ -27,9 +27,9 @@
   "devDependencies": {
     "cssmin": "^0.4.3",
     "less": "^2.5.1",
+    "mkdirp": "^0.5.1",
     "node-sass": "^3.3.2",
     "uglify-js": "^2.4.24",
-    "watch": "^0.16.0",
-    "mkdirp": "^0.5.1"
+    "watch": "^0.16.0"
   }
 }
