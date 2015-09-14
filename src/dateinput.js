@@ -201,6 +201,9 @@
 
 			select = function (date)
 			{
+				if (date.constructor === Number)
+					date = cache[date];
+
 				// current value
 				value		= date;
 				currYear	= date.getFullYear();
