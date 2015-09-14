@@ -70,64 +70,38 @@
 				currYear = year;
 				currDay = day;
 
-				// elements
 				var
-					$table = $('<table><tbody><tr/><tr/></tbody></table>'),
-					$c = $table.eq(0).children(),
-					s = $c.eq(0).children().eq(0),
-					d = s.next(),
-					monthSelector = $('<select/>').change(function() {
-						setValue(yearSelector.val(), $(this).val());
-					}),
-					yearSelector = $('<select/>').change(function() {
-						setValue($(this).val(), monthSelector.val());
-					}),
 					tmp = new Date(year, month, 1 - (conf.firstDay || 0)), begin = tmp.getDay(),
 					days = dayAm(year, month),
 					prevDays = dayAm(year, month - 1),
-					week;
-
-				s.append($('<td/>').attr('colspan', 7).append(monthSelector.add(yearSelector)));
-				root.html($table);
+					week,
+					myTable = document.createElement("table"),
+					myRow = myTable.insertRow(-1);
 
 				for (var d1 = 0; d1 < 7; d1++)
-					d.append($('<th/>').addClass('right').text(daysShort[(d1 + (conf.firstDay || 0)) % 7]));
-
-				if (!fromKey)
 				{
-					monthSelector.empty();
-					$.each(months, function(i, m) {
-						if ((min && min < new Date(year, i + 1, 1)) && (max && max > new Date(year, i, 0)))
-							monthSelector.append($('<option/>').text(m).attr('value', i));
-					});
-
-					yearSelector.empty();
-
-					for (var i = yearNow + conf.yearRange[0]; i < yearNow + conf.yearRange[1]; i++)
-						if ((min && min < new Date(i + 1, 0, 1)) && (max && max > new Date(i, 0, 0)))
-							yearSelector.append($('<option/>').text(i).val(i));
-
-					monthSelector.val(month);
-					yearSelector.val(year);
+					myCell = myRow.insertCell(-1);
+					myCell.innerHTML = daysShort[(d1 + (conf.firstDay || 0)) % 7];
 				}
 
 				// !begin === 'sunday'
 				for (var j = !begin ? -7 : 0, td, num; j < (!begin ? 35 : 42); j++) {
 
-					td = $('<td/>').addClass('right');
-
 					if (j % 7 === 0)
-						week = $('<tr/>').appendTo($c);
+						myRow = myTable.insertRow(-1);
+
+					var cls = [];
+					var myCell = myRow.insertCell(-1);
 
 					if (j < begin)
 					{
-						td.addClass('disabled');
+						cls[cls.length] = 'disabled';
 						num = prevDays - begin + j + 1;
 						thisDate = new Date(year, month - 1, num);
 					}
 					else if (j >= begin + days)
 					{
-						td.addClass('disabled');
+						cls[cls.length] = 'disabled';
 						num = j - days - begin + 1;
 						thisDate = new Date(year, month + 1, num);
 					}
@@ -138,25 +112,31 @@
 
 						// chosen date
 						if (isSameDay(value, thisDate))
-							td.addClass('chosen');
+							cls[cls.length] = 'chosen';
 
 						// today
 						if (isSameDay(now, thisDate))
-							td.addClass('today');
+							cls[cls.length] = 'today';
 
 						// current
 						if (isSameDay(date, thisDate))
-							td.addClass('hove');
+							cls[cls.length] = 'hove';
 					}
 
 					// disabled
 					if ((min && thisDate < min) || (max && thisDate > max))
-						td.addClass('disabled');
+						cls[cls.length] = 'disabled';
 
-					td.appendTo(week).text(num).filter(':not(.disabled)').data('date', thisDate).click(function (e)
+					myCell.innerHTML = num;
+					myCell.className = cls.join(' ');
+					myCell.setAttribute('data-date', thisDate);
+
+					myCell.onclick = function (e)
 					{
-						select($(this).data('date'), e);
-					});
+						select(this.getAttribute('data-date'), e);
+					}
+
+					root.append(myTable);
 				}
 			},
 
