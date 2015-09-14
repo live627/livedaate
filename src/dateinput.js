@@ -136,8 +136,8 @@
 						select(this.getAttribute('data-date'), e);
 					}
 
-					root.append(myTable);
 				}
+				root.append(myTable);
 			},
 
 			hide = function()
