@@ -74,7 +74,6 @@
 					tmp = new Date(year, month, 1 - (conf.firstDay || 0)), begin = tmp.getDay(),
 					days = dayAm(year, month),
 					prevDays = dayAm(year, month - 1),
-					week,
 					myTable = document.createElement("table"),
 					myRow = myTable.insertRow(-1);
 
