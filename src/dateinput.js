@@ -26,6 +26,7 @@
 			min = input.attr('min') || conf.min,
 			max = input.attr('max') || conf.max,
 			opened,
+			cache = {},
 
 			show = function(e) {
 				if (input.attr('readonly') || input.attr('disabled') || opened)
@@ -122,6 +123,8 @@
 						if (isSameDay(date, thisDate))
 							cls[cls.length] = 'hove';
 
+						cache[myCell.id = num] = thisDate;
+
 						myCell.onclick = function (e)
 						{
 							select(integer(this.id));
@@ -134,7 +137,6 @@
 
 					myCell.innerHTML = num;
 					myCell.className = cls.join(' ');
-					myCell.setAttribute('data-date', thisDate);
 
 				}
 				root.append(myTable);
