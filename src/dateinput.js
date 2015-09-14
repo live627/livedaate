@@ -121,6 +121,11 @@
 						// current
 						if (isSameDay(date, thisDate))
 							cls[cls.length] = 'hove';
+
+						myCell.onclick = function (e)
+						{
+							select(integer(this.id));
+						}
 					}
 
 					// disabled
@@ -130,11 +135,6 @@
 					myCell.innerHTML = num;
 					myCell.className = cls.join(' ');
 					myCell.setAttribute('data-date', thisDate);
-
-					myCell.onclick = function (e)
-					{
-						select(this.getAttribute('data-date'), e);
-					}
 
 				}
 				root.append(myTable);
