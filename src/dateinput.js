@@ -75,11 +75,12 @@
 					days = dayAm(year, month),
 					prevDays = dayAm(year, month - 1),
 					myTable = document.createElement("table"),
-					myRow = myTable.insertRow(-1);
+					myHead = myTable.createTHead(),
+					myRow = myHead.insertRow(-1);
 
 				for (var d1 = 0; d1 < 7; d1++)
 				{
-					myCell = myRow.insertCell(-1);
+					myCell = myRow.appendChild(document.createElement("th"));
 					myCell.innerHTML = daysShort[(d1 + (conf.firstDay || 0)) % 7];
 				}
 
