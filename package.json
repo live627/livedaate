@@ -14,7 +14,9 @@
   },
   "keywords": [
     "date",
-    "picker"
+    "picker",
+    "datepicker",
+    "calendar"
   ],
   "author": "live627 <live627@gmail.com>",
   "license": "MIT",
