@@ -15,11 +15,9 @@ Visual date picker script. Very compact at under 2KB minified and gzipped.
   <body>
     <input type="text" id="date">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="dateinput.min.js"></script>
     <script>
       var
-        is_opera = false,
         days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
         daysShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
         months = ['January','February','March','April','May','June','July','August','September','October','November','December'],
@@ -39,7 +37,7 @@ Visual date picker script. Very compact at under 2KB minified and gzipped.
 ## Goals
 My goals with this script are:
 - to keep it as lean and readable as possible
-- to ditch jQuery as a dependency
+- to NOT have jQuery as a dependency
 
 ## Sources
 
