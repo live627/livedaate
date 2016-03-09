@@ -1,7 +1,7 @@
 /**
  * Livedate
  *
- * Visual date picker script. Very compact at 1760 bytes minified and
+ * Visual date picker script. Very compact at under 2KB minified and
  * gzipped. Based on jQuery Tools Dateinput
  *
  * Developed and customized/optimized for inclusion with Wedge plugins
