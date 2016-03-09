@@ -11,6 +11,7 @@ npm install livedate --save
 ```
 
 ## Usage
+```
 <!doctype html>
 <html>
   <head>
@@ -34,6 +35,7 @@ npm install livedate --save
 
   </body>
 </html>
+```
 
 ## Tests
 
