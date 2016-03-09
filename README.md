@@ -1,9 +1,7 @@
-# DateInput [![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
-# livedate [![Build Status](https://travis-ci.org/live627/livedate.png?branch=master)](https://travis-ci.org/live627/livedate)
+# livedate [![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/live627/livedate.png?branch=master)](https://travis-ci.org/live627/livedate)
 
 Visual date picker script. Very compact at under 2KB minified and gzipped.
 
-## Usage
 ## Installation
 
 Download node at [nodejs.org](http://nodejs.org) and install it, if you haven't already.
@@ -11,6 +9,8 @@ Download node at [nodejs.org](http://nodejs.org) and install it, if you haven't 
 ```sh
 npm install livedate --save
 ```
+
+## Usage
 <!doctype html>
 <html>
   <head>
@@ -42,13 +42,7 @@ npm install livedate --save
 npm install
 npm test
 ```
-```
 
-> livedate@0.1.0 test C:\repos\livedate
-> echo "Error: no test specified" && exit 1
-"Error: no test specified"
-
-```
 ## Build
 
 `npm install` to grab all the dependenceies<br>
@@ -63,7 +57,6 @@ My goals with this script are:
 - to NOT have jQuery as a dependency
 ## Dev Dependencies
 
-## Sources
 - [cssmin](https://github.com/jbleuzen/node-cssmin): A simple CSS minifier that uses a port of YUICompressor in JS
 - [less](https://github.com/less/less.js): Leaner CSS
 - [mkdirp](https://github.com/substack/node-mkdirp): Recursively mkdir, like `mkdir -p`
@@ -71,6 +64,7 @@ My goals with this script are:
 - [uglify-js](https://github.com/mishoo/UglifyJS2): JavaScript parser, mangler/compressor and beautifier toolkit
 - [watch](https://github.com/mikeal/watch): Utilities for watching file trees.
 
+## Sources
 This work is based on [jQuery Tools Dateinput](http://jquerytools.github.io/documentation/dateinput/index.html).
 
 
