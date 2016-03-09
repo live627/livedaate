@@ -16,20 +16,20 @@
       }
     </style>
 
-    <link rel="stylesheet" href="dateinput.css">
+    <link rel="stylesheet" href="livedate.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   </head>
   <body>
     <input type="text" id="date">
 
-    <script src="dateinput.min.js"></script>
+    <script src="livedate.min.js"></script>
     <script>
       var
         days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
         daysShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
         months = ['January','February','March','April','May','June','July','August','September','October','November','December'],
         monthsShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-       new Dateinput(document.getElementById('date'));
+       new Livedate(document.getElementById('date'));
     </script>
 
   </body>
