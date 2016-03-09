@@ -17,8 +17,7 @@
 }
 
 .cal table {
-  cell-padding: 0;
-  cell-spacing: 0;
+  border-collapse: collapse;
 }
 
 .cal table td {
