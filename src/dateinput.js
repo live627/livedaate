@@ -10,9 +10,9 @@
  * @version 0.3
  */
 
-(function($)
+(function()
 {
-	function Dateinput(input, uconf)
+	window.Dateinput = function (input, uconf)
 	{
 		var
 			conf = extend({
@@ -22,23 +22,22 @@
 			yearNow = now.getFullYear(),
 			root,
 			currYear, currMonth, currDay,
-			value = input.attr('data-value') || conf.value || input.val() || now,
-			min = input.attr('min') || conf.min,
-			max = input.attr('max') || conf.max,
+			value = input.getAttribute('data-value') || conf.value || input.value || now,
+			min = input.getAttribute('min') || conf.min,
+			max = input.getAttribute('max') || conf.max,
 			opened,
 			cache = {},
 
 			show = function(e) {
-				if (input.attr('readonly') || input.attr('disabled') || opened)
+				if (input.getAttribute('readonly') || input.getAttribute('disabled') || opened)
 					return;
 
-				$('.cal').hide();
 				opened = true;
 
 				// set date
 				setValue(value);
 
-				root.animate(is_opera ? { opacity: 'show' } : { opacity: 'show', height: 'show' }, 150);
+				root.classList.add('slideInDown');
 				onShow();
 			},
 
@@ -86,7 +85,7 @@
 				}
 
 				// !begin === 'sunday'
-				for (var j = !begin ? -7 : 0, td, num; j < (!begin ? 35 : 42); j++) {
+				for (var j = !begin ? -7 : 0, num; j < (!begin ? 35 : 42); j++) {
 
 					if (j % 7 === 0)
 						myRow = myTable.insertRow(-1);
@@ -139,17 +138,15 @@
 					myCell.className = cls.join(' ');
 
 				}
-				root.append(myTable);
+				root.innerHTML = '';
+				root.appendChild(myTable);
 			},
 
 			hide = function()
 			{
-				if (opened)
-				{
-					$(document).off('.d');
-
+				if (opened) {
 					// do the hide
-					root.hide();
+					root.classList.remove('slideInDown');
 					opened = false;
 				}
 			},
@@ -180,7 +177,6 @@
 
 				if (typeof val == 'string')
 				{
-
 					// rfc3339?
 					var els = val.split('-');
 					if (els.length == 3)
@@ -211,61 +207,21 @@
 				currDay		= date.getDate();
 
 				// formatting
-				input.val(date.getFullYear()
+				input.value = date.getFullYear()
 					+ '-' + pad(date.getMonth() + 1)
-					+ '-' + pad(date.getDate()));
+					+ '-' + pad(date.getDate());
 
-				// store value into input
-				input.data('date', date);
 				hide();
 			},
 
 			onShow = function (ev)
 			{
-				$(document).on('keydown.d', function(event)
-				{
-					if (opened)
-						switch (event.keyCode)
-						{
-							case 9: case 27:
-								hide();
-								break; // hide on tab out // hide on escape
-							case 13:
-								var sel = $('td.hove:not(chosen)', root);
-								if (sel[0])
-									select(sel.data('date'));
-								return false; // don't submit the form
-								break; // select the value on enter
-							case 33:
-								addMonth(-1);
-								break; // previous month/year on page up/+ ctrl
-							case 34:
-								addMonth(+1);
-								break; // next month/year on page down/+ ctrl
-							case 82: // r
-								select(now);
-								break; // current
-							case 37: // left arrow
-								addDay(-1);
-								break;
-							case 38: // up arrow
-								addDay(-7);
-								break; // -1 week
-							case 39: // right arrow
-								addDay(+1);
-								break;
-							case 40: // down arrow
-								addDay(+7);
-								break; // +1 week
-						}
-				});
-
 				// click outside dateinput
-				$(document).on('click.d', function(e)
+				document.addEventListener('click', function(e)
 				{
 					var el = e.target;
 
-					if ($(el).parents('.cal').length || el == input[0])
+					if (el.closest('.cal') || el == input)
 						return;
 
 					hide(e);
@@ -287,17 +243,20 @@
 		max = parseDate(max || new Date(yearNow + conf.yearRange[1] + 1, 1, -1));
 
 		// root
-		root = $('<div>')
-			.addClass('cal');
-
-		input.after(root).addClass('dateinput');
+		root = document.createElement("div");
+		root.classList.add('cal');
+		root.classList.add('animated');
+		document.body.insertBefore(root, input.nextSibling);
+		input.classList.add('dateinput');
 
 		if (value)
 			select(value);
 
 		if (!conf.editable)
 		{
-			input.on('focus.d click.d', show).keydown(function(e)
+			input.addEventListener('focus', show);
+			input.addEventListener('click', show);
+			input.addEventListener('keydown', function(e)
 			{
 				var key = e.keyCode;
 
@@ -310,24 +269,13 @@
 				}
 				// clear value on backspace or delete
 				else if (key == 8 || key == 46)
-					input.val('');
+					input.value = '';
 
 				// allow tab
 				return e.shiftKey || e.ctrlKey || e.altKey || key == 9 ? true : e.preventDefault();
 			});
-		}
+		  }
 	}
-
-	$.fn.dateinput = function (conf)
-	{
-		return this.each(function ()
-		{
-			var $e = $(this), obj = $e.data('dateinput');
-
-			if (!obj)
-				$e.data('dateinput', new Dateinput($e, conf));
-		});
-	};
 
 	function extend (target) {
 		for (var i = 1; i < arguments.length; i++) {
@@ -343,4 +291,4 @@
 		return target
 	}
 
-}) (jQuery);
+}) ();
