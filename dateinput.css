@@ -3,7 +3,6 @@
   box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   background: #f7fcf7;
-  display: none;
   padding: 0.5em;
   position: absolute;
   z-index: 999;
@@ -36,7 +35,7 @@
   color: #300;
 }
 
-.cal table td:hover {
+.cal table td:not(.disabled):hover {
   color: #000;
   background-color: rgba(0, 0, 0, 0.075);
 }
@@ -47,5 +46,17 @@
 
 .cal table td.chosen {
   font-weight: bold;
+}
+
+.animated {
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  overflow: hidden;
+  max-height: 0;
+}
+
+.slideInDown {
+  opacity: 1;
+  max-height: 100vh;
 }
 
