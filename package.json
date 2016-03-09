@@ -1,10 +1,10 @@
 {
   "name": "livedate",
-  "version": "0.1.0",
-  "description": "Visual date picker jQuery plugin",
-  "main": "src/dateinput.js",
+  "version": "0.5.0",
+  "description": "Visual date picker script",
+  "main": "src/livedate.js",
   "scripts": {
-    "build": "mkdirp build && (uglifyjs --compress booleans  --mangle --source-map build/dateinput.min.js.map -- src/dateinput.js > build/dateinput.min.js & node-sass --output-style expanded src/dateinput.sass > build/dateinput.css)",
+    "build": "mkdirp build && (uglifyjs --compress booleans  --mangle --source-map build/livedate.min.js.map -- src/livedate.js > build/livedate.min.js & node-sass --output-style expanded src/livedate.sass > build/livedate.css)",
     "watch": "watch \"npm run build\" src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
