@@ -1,4 +1,4 @@
-# livedate [![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/live627/livedate.svg?branch=master)](https://travis-ci.org/live627/livedate)
+# livedate [![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/live627/livedate.svg?branch=master)](https://travis-ci.org/live627/livedate) [![Code Climate](https://codeclimate.com/github/live627/livedate/badges/gpa.svg)](https://codeclimate.com/github/live627/livedate)
 
 Visual date picker script. Very compact at under 2KB minified and gzipped.
 
