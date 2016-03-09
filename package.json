@@ -31,5 +31,8 @@
     "node-sass": "^3.3.2",
     "uglify-js": "^2.4.24",
     "watch": "^0.16.0"
+  },
+  "dependencies": {
+    "element-closest": "^1.0.3"
   }
 }
