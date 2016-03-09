@@ -1,5 +1,5 @@
 /**
- * DateInput
+ * Livedate
  *
  * Visual date picker script. Very compact at 1760 bytes minified and
  * gzipped. Based on jQuery Tools Dateinput
@@ -7,12 +7,12 @@
  * Developed and customized/optimized for inclusion with Wedge plugins
  * by John "live627" Rayes.
  *
- * @version 0.3
+ * @version 0.5
  */
 
 (function()
 {
-	window.Dateinput = function (input, uconf)
+	window.Livedate = function (input, uconf)
 	{
 		var
 			conf = extend({
