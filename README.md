@@ -1,4 +1,4 @@
-# livedate [![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/live627/livedate.png?branch=master)](https://travis-ci.org/live627/livedate)
+# livedate [![MIT license](http://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.org/live627/livedate.png?branch=master)(https://travis-ci.org/live627/livedate)]
 
 Visual date picker script. Very compact at under 2KB minified and gzipped.
 
@@ -35,7 +35,6 @@ npm install livedate --save
   </body>
 </html>
 
-
 ## Tests
 
 ```sh
@@ -47,6 +46,7 @@ npm test
 
 `npm install` to grab all the dependenceies<br>
 `npm run build` uglify and minify JS, compile SASS into CSS and minify it
+
 ## Dependencies
 
 None
@@ -55,6 +55,7 @@ None
 My goals with this script are:
 - to keep it as lean and readable as possible
 - to NOT have jQuery as a dependency
+
 ## Dev Dependencies
 
 - [cssmin](https://github.com/jbleuzen/node-cssmin): A simple CSS minifier that uses a port of YUICompressor in JS
@@ -70,4 +71,6 @@ This work is based on [jQuery Tools Dateinput](http://jquerytools.github.io/docu
 
 ## TODO
 
-* Use the scroll wheel to change months.
+- Use the scroll wheel to change months.
+- Create public methods
+- Build tests
