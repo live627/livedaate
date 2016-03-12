@@ -25,12 +25,9 @@
   },
   "homepage": "https://github.com/live627/livedate",
   "devDependencies": {
-    "cssmin": "^0.4.3",
-    "less": "^2.5.1",
     "mkdirp": "^0.5.1",
-    "node-sass": "^3.3.2",
-    "uglify-js": "^2.4.24",
-    "watch": "^0.16.0"
+    "node-sass": "^3.4.2",
+    "watch": "^0.16.0",
     "webpack": "^1.12.14"
   },
   "dependencies": {
