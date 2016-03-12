@@ -38,7 +38,7 @@ function factory(version) {
 			plugins.push(function() {
 				this.plugin('done', function(stats) {
 					fs.writeFileSync(
-						path.join(__dirname, 'build', filename + '.js.stats.json'),
+						path.join(__dirname, 'build', 'livedate.js.stats.json'),
 						JSON.stringify(stats.toJson()));
 				});
 			});
