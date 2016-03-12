@@ -113,12 +113,12 @@
 
 				for (var d1 = 0; d1 < 7; d1++)
 				{
-					myCell = myRow.appendChild(document.createElement("th"));
+					var myCell = myRow.appendChild(document.createElement("th"));
 					myCell.innerHTML = daysShort[(d1 + (conf.firstDay || 0)) % 7];
 				}
 
 				// !begin === 'sunday'
-				for (var j = !begin ? -7 : 0, num; j < (!begin ? 35 : 42); j++) {
+				for (var j = !begin ? -7 : 0, thisDate, num; j < (!begin ? 35 : 42); j++) {
 
 					if (j % 7 === 0)
 						myRow = myTable.insertRow(-1);
