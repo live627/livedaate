@@ -13,6 +13,7 @@
 (function()
 {
 	window.Livedate = function (input, uconf)
+	'use strict';
 	var extend = require('xtend');
 	module.exports = Livedate;
 
