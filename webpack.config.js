@@ -13,14 +13,6 @@ function factory(version) {
 			library: 'Livedate',
 			libraryTarget: 'umd' //var/umd
 		},
-		module: {
-			loaders: [
-				{
-					test: /\.js$/,
-					loader: 'babel-loader'
-				}
-			]
-		},
 		plugins: (function() {
 			var plugins = [];
 				plugins.push(new webpack.optimize.DedupePlugin());
