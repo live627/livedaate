@@ -83,6 +83,32 @@
 					myHead = myTable.createTHead(),
 					myRow = myHead.insertRow(-1);
 
+				if (!fromKey) {
+					monthSelector.innerHTML = '';
+						months.forEach(function(m, i) {
+						if ((min && min < new Date(year, i + 1, 1)) && (max && max > new Date(year, i, 0))) {
+							var opt = document.createElement("option");
+
+							opt.value = i;
+							opt.text = m;
+							monthSelector.add(opt);
+						}
+					});
+
+					yearSelector.innerHTML = '';
+					for (var i = yearNow + conf.yearRange[0]; i < yearNow + conf.yearRange[1]; i++)
+						if ((min && min < new Date(i + 1, 0, 1)) && (max && max > new Date(i, 0, 0))) {
+							var opt = document.createElement("option");
+
+							opt.value = i;
+							opt.text = i;
+							yearSelector.add(opt);
+						}
+
+					monthSelector.value = month;
+					yearSelector.value = year;
+				}
+
 				for (var d1 = 0; d1 < 7; d1++)
 				{
 					myCell = myRow.appendChild(document.createElement("th"));
@@ -253,6 +279,22 @@
 		root.classList.add('animated');
 		document.body.insertBefore(root, input.nextSibling);
 		input.classList.add('dateinput');
+		// year & month selectors
+		var
+			monthSelector = document.createElement("select");
+			monthSelector.addEventListener('change', function() {
+				setValue(yearSelector.value, this.value);
+			});
+		var
+			yearSelector = document.createElement("select");
+			yearSelector.addEventListener('change', function() {
+				setValue(this.value, monthSelector.value);
+			});
+		root.appendChild(monthSelector);
+		root.appendChild(yearSelector);
+
+		myTable = document.createElement("table"),
+		root.appendChild(myTable);
 
 		if (value)
 			select(value);
