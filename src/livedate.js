@@ -12,9 +12,9 @@
 
 (function()
 {
-	window.Livedate = function (input, uconf)
 	'use strict';
 	var extend = require('xtend');
+	var closest = require('element-closest');
 	module.exports = Livedate;
 
 	function Livedate (input, uconf)
