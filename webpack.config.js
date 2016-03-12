@@ -9,8 +9,8 @@ function factory(version) {
 		entry: './src/livedate.js',
 		output: {
 			path: path.join(__dirname, 'build'),
-			filename: 'livedate.js',
 			library: 'livedate',
+			filename: 'livedate.min.js',
 			libraryTarget: 'umd' //var/umd
 		},
 		module: {
