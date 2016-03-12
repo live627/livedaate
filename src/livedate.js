@@ -13,6 +13,7 @@
 (function()
 {
 	window.Livedate = function (input, uconf)
+	var extend = require('xtend');
 	module.exports = Livedate;
 
 	function Livedate (input, uconf)
@@ -277,21 +278,8 @@
 				// allow tab
 				return e.shiftKey || e.ctrlKey || e.altKey || key == 9 ? true : e.preventDefault();
 			});
-		  }
-	}
-
-	function extend (target) {
-		for (var i = 1; i < arguments.length; i++) {
-			var source = arguments[i]
-
-			for (var key in source) {
-				if (source.hasOwnProperty(key)) {
-					target[key] = source[key]
-				}
-			}
 		}
 
-		return target
 	}
 
 }) ();
