@@ -4,7 +4,7 @@
   "description": "Visual date picker script",
   "main": "src/livedate.js",
   "scripts": {
-    "build": "mkdirp build && (uglifyjs --compress booleans  --mangle --source-map build/livedate.min.js.map -- src/livedate.js > build/livedate.min.js & node-sass --output-style expanded src/livedate.sass > build/livedate.css)",
+    "build": "mkdirp build && (webpack & node-sass --output-style compressed src/livedate.sass > build/livedate.min.css)",
     "watch": "watch \"npm run build\" src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -31,6 +31,7 @@
     "node-sass": "^3.3.2",
     "uglify-js": "^2.4.24",
     "watch": "^0.16.0"
+    "webpack": "^1.12.14"
   },
   "dependencies": {
     "element-closest": "^1.0.3"
