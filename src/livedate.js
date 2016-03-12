@@ -13,6 +13,9 @@
 (function()
 {
 	window.Livedate = function (input, uconf)
+	module.exports = Livedate;
+
+	function Livedate (input, uconf)
 	{
 		var
 			conf = extend({
