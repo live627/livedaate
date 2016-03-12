@@ -32,6 +32,7 @@
 			max = input.getAttribute('max') || conf.max,
 			opened,
 			cache = {},
+			myTable,
 
 			show = function(e) {
 				if (input.getAttribute('readonly') || input.getAttribute('disabled') || opened)
@@ -75,11 +76,12 @@
 				currYear = year;
 				currDay = day;
 
+				myTable.innerHTML = '';
+
 				var
 					tmp = new Date(year, month, 1 - (conf.firstDay || 0)), begin = tmp.getDay(),
 					days = dayAm(year, month),
 					prevDays = dayAm(year, month - 1),
-					myTable = document.createElement("table"),
 					myHead = myTable.createTHead(),
 					myRow = myHead.insertRow(-1);
 
@@ -169,8 +171,6 @@
 					myCell.className = cls.join(' ');
 
 				}
-				root.innerHTML = '';
-				root.appendChild(myTable);
 			},
 
 			hide = function()
