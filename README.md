@@ -62,11 +62,8 @@ My goals with this script are:
 
 ## Dev Dependencies
 
-- [cssmin](https://github.com/jbleuzen/node-cssmin): A simple CSS minifier that uses a port of YUICompressor in JS
-- [less](https://github.com/less/less.js): Leaner CSS
 - [mkdirp](https://github.com/substack/node-mkdirp): Recursively mkdir, like `mkdir -p`
 - [node-sass](https://github.com/sass/node-sass): Wrapper around libsass
-- [uglify-js](https://github.com/mishoo/UglifyJS2): JavaScript parser, mangler/compressor and beautifier toolkit
 - [watch](https://github.com/mikeal/watch): Utilities for watching file trees.
 
 ## Sources
@@ -76,5 +73,4 @@ This work is based on [jQuery Tools Dateinput](http://jquerytools.github.io/docu
 ## TODO
 
 - Use the scroll wheel to change months.
-- Create public methods
 - Build tests

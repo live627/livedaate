@@ -7,12 +7,17 @@
  * Developed and customized/optimized for inclusion with Wedge plugins
  * by John "live627" Rayes.
  *
- * @version 0.5
+ * @version 0.6
  */
 
 (function()
 {
-	window.Livedate = function (input, uconf)
+	'use strict';
+	var extend = require('xtend');
+	var closest = require('element-closest');
+	module.exports = Livedate;
+
+	function Livedate (input, uconf)
 	{
 		var
 			conf = extend({
@@ -27,6 +32,7 @@
 			max = input.getAttribute('max') || conf.max,
 			opened,
 			cache = {},
+			myTable,
 
 			show = function(e) {
 				if (input.getAttribute('readonly') || input.getAttribute('disabled') || opened)
@@ -70,22 +76,49 @@
 				currYear = year;
 				currDay = day;
 
+				myTable.innerHTML = '';
+
 				var
 					tmp = new Date(year, month, 1 - (conf.firstDay || 0)), begin = tmp.getDay(),
 					days = dayAm(year, month),
 					prevDays = dayAm(year, month - 1),
-					myTable = document.createElement("table"),
 					myHead = myTable.createTHead(),
 					myRow = myHead.insertRow(-1);
 
+				if (!fromKey) {
+					monthSelector.innerHTML = '';
+						months.forEach(function(m, i) {
+						if ((min && min < new Date(year, i + 1, 1)) && (max && max > new Date(year, i, 0))) {
+							var opt = document.createElement("option");
+
+							opt.value = i;
+							opt.text = m;
+							monthSelector.add(opt);
+						}
+					});
+
+					yearSelector.innerHTML = '';
+					for (var i = yearNow + conf.yearRange[0]; i < yearNow + conf.yearRange[1]; i++)
+						if ((min && min < new Date(i + 1, 0, 1)) && (max && max > new Date(i, 0, 0))) {
+							var opt = document.createElement("option");
+
+							opt.value = i;
+							opt.text = i;
+							yearSelector.add(opt);
+						}
+
+					monthSelector.value = month;
+					yearSelector.value = year;
+				}
+
 				for (var d1 = 0; d1 < 7; d1++)
 				{
-					myCell = myRow.appendChild(document.createElement("th"));
+					var myCell = myRow.appendChild(document.createElement("th"));
 					myCell.innerHTML = daysShort[(d1 + (conf.firstDay || 0)) % 7];
 				}
 
 				// !begin === 'sunday'
-				for (var j = !begin ? -7 : 0, num; j < (!begin ? 35 : 42); j++) {
+				for (var j = !begin ? -7 : 0, thisDate, num; j < (!begin ? 35 : 42); j++) {
 
 					if (j % 7 === 0)
 						myRow = myTable.insertRow(-1);
@@ -138,8 +171,6 @@
 					myCell.className = cls.join(' ');
 
 				}
-				root.innerHTML = '';
-				root.appendChild(myTable);
 			},
 
 			hide = function()
@@ -248,6 +279,22 @@
 		root.classList.add('animated');
 		document.body.insertBefore(root, input.nextSibling);
 		input.classList.add('dateinput');
+		// year & month selectors
+		var
+			monthSelector = document.createElement("select");
+			monthSelector.addEventListener('change', function() {
+				setValue(yearSelector.value, this.value);
+			});
+		var
+			yearSelector = document.createElement("select");
+			yearSelector.addEventListener('change', function() {
+				setValue(this.value, monthSelector.value);
+			});
+		root.appendChild(monthSelector);
+		root.appendChild(yearSelector);
+
+		myTable = document.createElement("table"),
+		root.appendChild(myTable);
 
 		if (value)
 			select(value);
@@ -274,21 +321,11 @@
 				// allow tab
 				return e.shiftKey || e.ctrlKey || e.altKey || key == 9 ? true : e.preventDefault();
 			});
-		  }
-	}
-
-	function extend (target) {
-		for (var i = 1; i < arguments.length; i++) {
-			var source = arguments[i]
-
-			for (var key in source) {
-				if (source.hasOwnProperty(key)) {
-					target[key] = source[key]
-				}
-			}
 		}
 
-		return target
+		// Expose methods
+		this.show = show;
+		this.hide = hide;
 	}
 
 }) ();
