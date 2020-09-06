@@ -27,7 +27,7 @@
   "devDependencies": {
     "mkdirp": "^1.0.4",
     "node-sass": "^3.4.2",
-    "watch": "^0.16.0",
+    "watch": "^1.0.2",
     "webpack": "^4.44.1"
   },
   "dependencies": {
