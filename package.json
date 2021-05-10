@@ -26,7 +26,7 @@
   "homepage": "https://github.com/live627/livedate",
   "devDependencies": {
     "mkdirp": "^1.0.4",
-    "node-sass": "^5.0.0",
+    "node-sass": "^6.0.0",
     "watch": "^1.0.2",
     "webpack": "^5.0.0"
   },
