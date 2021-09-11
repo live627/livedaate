@@ -10,302 +10,282 @@
  * @version 0.6
  */
 
-(function()
-{
-	'use strict';
-	var extend = require('xtend');
-	var closest = require('element-closest');
-	module.exports = Livedate;
+(() => {
+    const extend = require('xtend');
+    const closest = require('element-closest');
+    module.exports = Livedate;
 
-	function Livedate (input, uconf)
+    function Livedate (input, uconf)
 	{
-		var
-			conf = extend({
-				yearRange: [-5, 10],
-			}, uconf),
-			now = new Date(),
-			yearNow = now.getFullYear(),
-			root,
-			currYear, currMonth, currDay,
-			value = input.getAttribute('data-value') || conf.value || input.value || now,
-			min = input.getAttribute('min') || conf.min,
-			max = input.getAttribute('max') || conf.max,
-			opened,
-			cache = {},
-			myTable,
+        const conf = extend({
+            yearRange: [-5, 10],
+        }, uconf);
 
-			show = function(e) {
-				if (input.getAttribute('readonly') || input.getAttribute('disabled') || opened)
-					return;
+        const now = new Date();
+        const yearNow = now.getFullYear();
+        let root;
+        let currYear;
+        let currMonth;
+        let currDay;
+        let value = input.getAttribute('data-value') || conf.value || input.value || now;
+        let min = input.getAttribute('min') || conf.min;
+        let max = input.getAttribute('max') || conf.max;
+        let opened;
+        const cache = {};
+        let myTable;
 
-				opened = true;
+        const show = e => {
+            if (input.getAttribute('readonly') || input.getAttribute('disabled') || opened)
+                return;
 
-				// set date
-				setValue(value);
+            opened = true;
 
-				root.classList.add('slideInDown');
-				onShow();
-			},
+            // set date
+            setValue(value);
 
-			setValue = function(year, month, day, fromKey)
-			{
-				var date = integer(month) >= -1 ? new Date(integer(year), integer(month), integer(day == undefined || isNaN(day) ? 1 : day)) : year || value;
+            root.classList.add('slideInDown');
+            onShow();
+        };
 
-				if (date < min)
-					date = min;
-				else if (date > max)
-					date = max;
+        var setValue = (year, month, day, fromKey) => {
+            let date = integer(month) >= -1 ? new Date(integer(year), integer(month), integer(day == undefined || isNaN(day) ? 1 : day)) : year || value;
 
-				year = date.getFullYear();
-				month = date.getMonth();
-				day = date.getDate();
+            if (date < min)
+                date = min;
+            else if (date > max)
+                date = max;
 
-				// roll year & month
-				if (month == -1) {
-					month = 11;
-					year--;
-				} else if (month == 12) {
-					month = 0;
-					year++;
-				}
+            year = date.getFullYear();
+            month = date.getMonth();
+            day = date.getDate();
 
-				if (!opened)
-					select(date);
+            // roll year & month
+            if (month == -1) {
+                month = 11;
+                year--;
+            } else if (month == 12) {
+                month = 0;
+                year++;
+            }
 
-				currMonth = month;
-				currYear = year;
-				currDay = day;
+            if (!opened)
+                select(date);
 
-				myTable.innerHTML = '';
+            currMonth = month;
+            currYear = year;
+            currDay = day;
 
-				var
-					tmp = new Date(year, month, 1 - (conf.firstDay || 0)), begin = tmp.getDay(),
-					days = dayAm(year, month),
-					prevDays = dayAm(year, month - 1),
-					myHead = myTable.createTHead(),
-					myRow = myHead.insertRow(-1);
+            myTable.innerHTML = '';
 
-				if (!fromKey) {
-					monthSelector.innerHTML = '';
-						months.forEach(function(m, i) {
-						if ((min && min < new Date(year, i + 1, 1)) && (max && max > new Date(year, i, 0))) {
-							var opt = document.createElement("option");
+            const tmp = new Date(year, month, 1 - (conf.firstDay || 0));
+            const begin = tmp.getDay();
+            const days = dayAm(year, month);
+            const prevDays = dayAm(year, month - 1);
+            const myHead = myTable.createTHead();
+            let myRow = myHead.insertRow(-1);
 
-							opt.value = i;
-							opt.text = m;
-							monthSelector.add(opt);
-						}
-					});
+            if (!fromKey) {
+                monthSelector.innerHTML = '';
+                    months.forEach((m, i) => {
+                    if ((min && min < new Date(year, i + 1, 1)) && (max && max > new Date(year, i, 0))) {
+                        const opt = document.createElement("option");
 
-					yearSelector.innerHTML = '';
-					for (var i = yearNow + conf.yearRange[0]; i < yearNow + conf.yearRange[1]; i++)
-						if ((min && min < new Date(i + 1, 0, 1)) && (max && max > new Date(i, 0, 0))) {
-							var opt = document.createElement("option");
+                        opt.value = i;
+                        opt.text = m;
+                        monthSelector.add(opt);
+                    }
+                });
 
-							opt.value = i;
-							opt.text = i;
-							yearSelector.add(opt);
-						}
+                yearSelector.innerHTML = '';
+                for (let i = yearNow + conf.yearRange[0]; i < yearNow + conf.yearRange[1]; i++)
+                    if ((min && min < new Date(i + 1, 0, 1)) && (max && max > new Date(i, 0, 0))) {
+                        const opt = document.createElement("option");
 
-					monthSelector.value = month;
-					yearSelector.value = year;
-				}
+                        opt.value = i;
+                        opt.text = i;
+                        yearSelector.add(opt);
+                    }
 
-				for (var d1 = 0; d1 < 7; d1++)
-				{
-					var myCell = myRow.appendChild(document.createElement("th"));
-					myCell.innerHTML = daysShort[(d1 + (conf.firstDay || 0)) % 7];
-				}
+                monthSelector.value = month;
+                yearSelector.value = year;
+            }
 
-				// !begin === 'sunday'
-				for (var j = !begin ? -7 : 0, thisDate, num; j < (!begin ? 35 : 42); j++) {
+            for (let d1 = 0; d1 < 7; d1++)
+            {
+                var myCell = myRow.appendChild(document.createElement("th"));
+                myCell.innerHTML = daysShort[(d1 + (conf.firstDay || 0)) % 7];
+            }
 
-					if (j % 7 === 0)
-						myRow = myTable.insertRow(-1);
+            // !begin === 'sunday'
+            for (let j = !begin ? -7 : 0, thisDate, num; j < (!begin ? 35 : 42); j++) {
 
-					var cls = [];
-					var myCell = myRow.insertCell(-1);
+                if (j % 7 === 0)
+                    myRow = myTable.insertRow(-1);
 
-					if (j < begin)
-					{
-						cls[cls.length] = 'disabled';
-						num = prevDays - begin + j + 1;
-						thisDate = new Date(year, month - 1, num);
-					}
-					else if (j >= begin + days)
-					{
-						cls[cls.length] = 'disabled';
-						num = j - days - begin + 1;
-						thisDate = new Date(year, month + 1, num);
-					}
-					else
-					{
-						num = j - begin + 1;
-						thisDate = new Date(year, month, num);
+                const cls = [];
+                var myCell = myRow.insertCell(-1);
 
-						// chosen date
-						if (isSameDay(value, thisDate))
-							cls[cls.length] = 'chosen';
+                if (j < begin)
+                {
+                    cls[cls.length] = 'disabled';
+                    num = prevDays - begin + j + 1;
+                    thisDate = new Date(year, month - 1, num);
+                }
+                else if (j >= begin + days)
+                {
+                    cls[cls.length] = 'disabled';
+                    num = j - days - begin + 1;
+                    thisDate = new Date(year, month + 1, num);
+                }
+                else
+                {
+                    num = j - begin + 1;
+                    thisDate = new Date(year, month, num);
 
-						// today
-						if (isSameDay(now, thisDate))
-							cls[cls.length] = 'today';
+                    // chosen date
+                    if (isSameDay(value, thisDate))
+                        cls[cls.length] = 'chosen';
 
-						// current
-						if (isSameDay(date, thisDate))
-							cls[cls.length] = 'hove';
+                    // today
+                    if (isSameDay(now, thisDate))
+                        cls[cls.length] = 'today';
 
-						cache[myCell.id = num] = thisDate;
+                    // current
+                    if (isSameDay(date, thisDate))
+                        cls[cls.length] = 'hove';
 
-						myCell.onclick = function (e)
-						{
-							select(integer(this.id));
-						}
-					}
+                    cache[myCell.id = num] = thisDate;
 
-					// disabled
-					if ((min && thisDate < min) || (max && thisDate > max))
-						cls[cls.length] = 'disabled';
+                    myCell.onclick = function (e)
+                    {
+                        select(integer(this.id));
+                    }
+                }
 
-					myCell.innerHTML = num;
-					myCell.className = cls.join(' ');
+                // disabled
+                if ((min && thisDate < min) || (max && thisDate > max))
+                    cls[cls.length] = 'disabled';
 
-				}
-			},
+                myCell.innerHTML = num;
+                myCell.className = cls.join(' ');
 
-			hide = function()
-			{
-				if (opened) {
-					// do the hide
-					root.classList.remove('slideInDown');
-					opened = false;
-				}
-			},
+            }
+        };
 
-			// @return amount of days in certain month
-			dayAm = function (year, month)
-			{
-				return new Date(year, month + 1, 0).getDate();
-			},
+        const hide = () => {
+            if (opened) {
+                // do the hide
+                root.classList.remove('slideInDown');
+                opened = false;
+            }
+        };
 
-			integer = function (val)
-			{
-				return parseInt(val, 10);
-			},
+        var // @return amount of days in certain month
+        dayAm = (year, month) => new Date(year, month + 1, 0).getDate();
 
-			isSameDay = function (d1, d2)
-			{
-				return d1.toDateString() == d2.toDateString();
-			},
+        var integer = val => parseInt(val, 10);
+        var isSameDay = (d1, d2) => d1.toDateString() == d2.toDateString();
 
-			parseDate = function (val)
-			{
-				if (val === undefined)
-					return;
+        const parseDate = val => {
+            if (val === undefined)
+                return;
 
-				if (val.constructor == Date)
-					return val;
+            if (val.constructor == Date)
+                return val;
 
-				if (typeof val == 'string')
-				{
-					// rfc3339?
-					var els = val.split('-');
-					if (els.length == 3)
-						return new Date(integer(els[0]), integer(els[1]) - 1, integer(els[2]));
+            if (typeof val == 'string')
+            {
+                // rfc3339?
+                const els = val.split('-');
+                if (els.length == 3)
+                    return new Date(integer(els[0]), integer(els[1]) - 1, integer(els[2]));
 
-					// invalid offset
-					if ( !(/^-?\d+$/).test(val) )
-						return;
+                // invalid offset
+                if ( !(/^-?\d+$/).test(val) )
+                    return;
 
-					// convert to integer
-					val = integer(val);
-				}
+                // convert to integer
+                val = integer(val);
+            }
 
-				var date = new Date;
-				date.setDate(date.getDate() + val);
-				return date;
-			},
+            const date = new Date;
+            date.setDate(date.getDate() + val);
+            return date;
+        };
 
-			select = function (date)
-			{
-				if (date.constructor === Number)
-					date = cache[date];
+        var select = date => {
+            if (date.constructor === Number)
+                date = cache[date];
 
-				// current value
-				value		= date;
-				currYear	= date.getFullYear();
-				currMonth	= date.getMonth();
-				currDay		= date.getDate();
+            // current value
+            value		= date;
+            currYear	= date.getFullYear();
+            currMonth	= date.getMonth();
+            currDay		= date.getDate();
 
-				// formatting
-				input.value = date.getFullYear()
-					+ '-' + pad(date.getMonth() + 1)
-					+ '-' + pad(date.getDate());
+            // formatting
+            input.value = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 
-				hide();
-			},
+            hide();
+        };
 
-			onShow = function (ev)
-			{
-				// click outside dateinput
-				document.addEventListener('click', function(e)
-				{
-					var el = e.target;
+        var onShow = ev => {
+            // click outside dateinput
+            document.addEventListener('click', e => {
+                const el = e.target;
 
-					if (el.closest('.cal') || el == input)
-						return;
+                if (el.closest('.cal') || el == input)
+                    return;
 
-					hide(e);
-				});
-			},
+                hide(e);
+            });
+        };
 
-			pad = function (number)
-			{
-				var r = String(number);
-				if (r.length === 1)
-					r = '0' + r;
+        var pad = number => {
+            let r = String(number);
+            if (r.length === 1)
+                r = `0${r}`;
 
-				return r;
-			};
+            return r;
+        };
 
-		// use sane values for value, min & max
-		value = parseDate(value);
-		min = parseDate(min || new Date(yearNow + conf.yearRange[0], 1, 1));
-		max = parseDate(max || new Date(yearNow + conf.yearRange[1] + 1, 1, -1));
+        // use sane values for value, min & max
+        value = parseDate(value);
+        min = parseDate(min || new Date(yearNow + conf.yearRange[0], 1, 1));
+        max = parseDate(max || new Date(yearNow + conf.yearRange[1] + 1, 1, -1));
 
-		// root
-		root = document.createElement("div");
-		root.classList.add('cal');
-		root.classList.add('animated');
-		document.body.insertBefore(root, input.nextSibling);
-		input.classList.add('dateinput');
-		// year & month selectors
-		var
+        // root
+        root = document.createElement("div");
+        root.classList.add('cal');
+        root.classList.add('animated');
+        document.body.insertBefore(root, input.nextSibling);
+        input.classList.add('dateinput');
+        // year & month selectors
+        var
 			monthSelector = document.createElement("select");
-			monthSelector.addEventListener('change', function() {
-				setValue(yearSelector.value, this.value);
-			});
-		var
+        monthSelector.addEventListener('change', function() {
+            setValue(yearSelector.value, this.value);
+        });
+        var
 			yearSelector = document.createElement("select");
-			yearSelector.addEventListener('change', function() {
-				setValue(this.value, monthSelector.value);
-			});
-		root.appendChild(monthSelector);
-		root.appendChild(yearSelector);
+        yearSelector.addEventListener('change', function() {
+            setValue(this.value, monthSelector.value);
+        });
+        root.appendChild(monthSelector);
+        root.appendChild(yearSelector);
 
-		myTable = document.createElement("table"),
+        myTable = document.createElement("table"),
 		root.appendChild(myTable);
 
-		if (value)
+        if (value)
 			select(value);
 
-		if (!conf.editable)
+        if (!conf.editable)
 		{
 			input.addEventListener('focus', show);
 			input.addEventListener('click', show);
-			input.addEventListener('keydown', function(e)
-			{
-				var key = e.keyCode;
+			input.addEventListener('keydown', e => {
+				const key = e.keyCode;
 
 				// open dateinput with navigation keys
 				// h=72, j=74, k=75, l=76, down=40, left=37, up=38, right=39
@@ -323,9 +303,8 @@
 			});
 		}
 
-		// Expose methods
-		this.show = show;
-		this.hide = hide;
-	}
-
-}) ();
+        // Expose methods
+        this.show = show;
+        this.hide = hide;
+    }
+})();
